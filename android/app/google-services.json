@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "854554364821",
+    "firebase_url": "https://homenet-9662d.firebaseio.com",
+    "project_id": "homenet-9662d",
+    "storage_bucket": "homenet-9662d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854554364821:android:b4d48286f213cd210b049c",
+        "android_client_info": {
+          "package_name": "com.homenet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854554364821-ngt5596eak50qmabv8dh82gh5kj45ol2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0vL1z3KTrIt_7_n5O6nJfcGAav4pEwLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854554364821-ngt5596eak50qmabv8dh82gh5kj45ol2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
