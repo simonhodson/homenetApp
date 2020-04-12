@@ -44,14 +44,24 @@ class DataRequestsService extends AsyncStorageService {
   // ***************** FIREBASE ***************
   // ******************************************
 
-  FBLoginUsernamePassword(email, password, callback) {
+  FBLoginUsernamePassword(email, password, errorback) {
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => 'Success')
       .catch((error) => {
-        if (error.code === 'auth/wrong-password') { callback(error.code); }
-        if (error.code === 'auth/invalid-email') { callback(error.code); }
+        if (error.code === 'auth/wrong-password') { errorback(error.code); }
+        if (error.code === 'auth/invalid-email') { errorback(error.code); }
         console.log(error.code);
+      });
+  }
+
+  FBSignOut(callback) {
+    auth()
+      .signOut()
+      .catch((error) => {
+        if (error.code === 'auth/no-current-user') {
+          callback(null, error.code);
+        }
+        callback(null);
       });
   }
 

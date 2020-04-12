@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, TextInput, Button,
+  View, Text, StyleSheet, TextInput, Button, ActivityIndicator,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import DataRequestsService from '../../services/DataRequestsService';
@@ -17,14 +17,25 @@ const Login = () => {
   const [password, setPassword] = useState();
   const [eValue, setEValue] = useState('');
   const [pValue, setPValue] = useState('');
+  const [isConnecting, setIsConnecting] = useState(true);
   const {
     wrapper, fieldSet, legend, signText, inputStyle,
   } = styles;
-  
+
 
   // Handle user state changes
   function onAuthStateChanged(user) {
+    if (user !== null) {
+      // Handle user as true
+      console.log(user.email);
+    }
+    reset();
     // save token ans navigate
+  }
+
+  function reset() {
+    setIsConnecting(false);
+    setSignInOrError(signInText);
   }
 
   useEffect(() => {
@@ -32,19 +43,41 @@ const Login = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  function createUser() {
+  function loginUser() {
+    setIsConnecting(true);
+    auth()
+      .signInWithEmailAndPassword(username, password)
+      .then(() => {
+        // Logged in so Login action ?
+        setIsConnecting(false);
+      })
+      .catch((error) => {
+        if (error.code === 'auth/wrong-password') { setSignInOrError('Invalid Password'); }
+        if (error.code === 'auth/invalid-email') { setSignInOrError('Invalid Email'); }
+        if (error.code === 'auth/user-disabled') { setSignInOrError('This User Account is Disabled'); }
+        if (error.code === 'auth/user-not-found') { setSignInOrError('User Not Found'); }
+        if (error.code === 'auth/too-many-requests') { console.log('Handle have you forgotten password'); }
+        setTimeout(reset, 2000);
+      });
+
     // Use auth as a user
     // If not a user run create user
     // If skip sign in anonamously
-    DataRequestsService.FBLoginUsernamePassword(username, password, (err) => {
-      if (err) {
-        console.log('HERE IS AN ERROR ' + err)
-      }
-    })
   }
 
-  const signOut = () => {
-    auth().signOut();
+  const createUser = () => {
+    setIsConnecting(true);
+    auth()
+      .createUserWithEmailAndPassword(username, password)
+      .then(() => {
+        // Created and signed in so login ?
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') { setSignInOrError('Email in use,\n Have you forgotten your password ?'); }
+        if (error.code === 'auth/invalid-email') { setSignInOrError('Invalid Email'); }
+        if (error.code === 'auth/weak-password') { setSignInOrError('Password must be a minmum 6 characterss'); }
+        setTimeout(reset, 2000);
+      });
   };
 
   return (
@@ -75,16 +108,21 @@ const Login = () => {
             enablesReturnKeyAutomatically
           />
         </View>
-        <Button
+        {isConnecting ? <ActivityIndicator />
+          : <Button
           title="Login"
-          accessibilityLabel="Login"
+          accessibilityLabel="Log in"
+          onPress={loginUser}
+          disabled={isConnecting}
+        />}
+        <View style={{ paddingVertical: 10 }} />
+        {isConnecting ? <ActivityIndicator />
+          : <Button
+          title="Create User"
+          accessibilityLabel="Create User"
           onPress={createUser}
-        />
-        <Button
-          title="Sign out"
-          accessibilityLabel="Login"
-          onPress={signOut}
-        />
+          disabled={isConnecting}
+        />}
       </View>
   );
 };
