@@ -3,9 +3,8 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import auth from '@react-native-firebase/auth';
-import DatRequestsService from '../services/DataRequestsService';
 import Login from '../screens/authscreens/login';
-import Main from '../screens/main/main';
+import TabNavigator from './TabNavigator';
 import Splashscreen from '../screens/splashscreen/splashscreen';
 
 const Stack = createStackNavigator();
@@ -14,20 +13,34 @@ const AuthStack = () => {
   const [user, setUser] = useState();
   const [initializing, setInitializing] = useState(true);
 
-  // // Handle user state changes
-  // function onAuthStateChanged(user) {
-  //   setUser(user);
-  //   if (initializing) setInitializing(false);
-  // }
+  // Handle user state changes globally
+  function onAuthStateChanged(user) {
+    if (user) {
+      setUser(user);
+      setInitializing(false);
+    } else {
+      bootstrap();
+    }
+  }
 
-  // useEffect(() => {
-  //   // start Async process and return
-  //   // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   // return subscriber; // unsubscribe on unmount
-  // }, []);
+  const bootstrap = () => {
+    const verifyUser = auth().currentUser;
+    if (verifyUser) {
+      setUser(verifyUser);
+      setInitializing(false);
+    } else {
+      setInitializing(false);
+    }
+  };
+
+  useEffect(() => {
+    bootstrap();
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
 
   if (initializing) {
-    return <Login/>;
+    return <Splashscreen />;
   }
 
   return (
@@ -39,7 +52,7 @@ const AuthStack = () => {
             options={{ title: 'Sign in' }}
           />
         ) : (
-          <Stack.Screen name="Home" component={Main} />
+          <Stack.Screen name="Tab" component={TabNavigator} />
         )}
       </Stack.Navigator>
   );
