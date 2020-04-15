@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth';
 import Login from '../screens/authscreens/login';
 import TabNavigator from './TabNavigator';
 import Splashscreen from '../screens/splashscreen/splashscreen';
+import { Header } from '../components/common';
 
 const Stack = createStackNavigator();
 
@@ -52,7 +53,11 @@ const AuthStack = () => {
             options={{ title: 'Sign in' }}
           />
         ) : (
-          <Stack.Screen name="Tab" component={TabNavigator} />
+          <Stack.Screen
+            name="Home Net"
+            component={TabNavigator}
+            options={({ route }) => ({ title: route.params.name })}
+          />
         )}
       </Stack.Navigator>
   );

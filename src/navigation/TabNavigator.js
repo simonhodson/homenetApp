@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Main from '../screens/main/main';
 import List from '../screens/list/list';
-import Sync from '../screens/sync/sync';
+import Scanner from '../screens/scanner/scanner';
 import MyApp from '../screens/myapp/myApp';
 import Cupboards from '../screens/cupboard/cupboard';
 import { NavIcon } from '../components/common';
@@ -14,29 +14,29 @@ import ListIcon from '../assets/nav-icons/nav-list-50.png';
 import HomeIcon from '../assets/nav-icons/nav-home-50.png';
 import MyAppIco from '../assets/nav-icons/nav-myapp-50.png';
 import Food from '../assets/nav-icons/nav-apple-64.png';
-import SyncIcon from '../assets/nav-icons/nav-sync-50.png';
+import ScanIcon from '../assets/nav-icons/nav-sync-50.png';
+import { Header } from '../components/common';
 
 const TabNavigator = createBottomTabNavigator();
 
-export default function BottomTabBar() {
+export default function BottomTabBar({ navigation }) {
   const { barStyle } = styles;
   return (
   <TabNavigator.Navigator
     tabBarOptions={{
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
-      showLabel: false,
       style: barStyle,
     }}
   >
     <TabNavigator.Screen
       name="Home"
       component={Main}
-      options={{
-        title: 'none',
-        displayName: 'Home',
-        tabBarIcon: ({ focused }) => <NavIcon icon={HomeIcon} />,
-      }}
+      options={({ navigation, route }) => ({
+        headerTitle: (props) => <Header image={HomeIcon} {...props} />,
+        // title: route.params.name,
+        tabBarIcon: () => <NavIcon icon={HomeIcon} />,
+      })}
     />
     <TabNavigator.Screen
       name="List"
@@ -48,12 +48,12 @@ export default function BottomTabBar() {
       }}
       />
     <TabNavigator.Screen
-      name="Sync"
-      component={Sync}
+      name="Scan Item"
+      component={Scanner}
       options={{
-        displayName: 'Sync',
-        title: 'Sync',
-        tabBarIcon: ({ focused }) => <NavIcon icon={SyncIcon} />,
+        displayName: 'Scan',
+        title: 'Scan Item',
+        tabBarIcon: ({ focused }) => <NavIcon icon={ScanIcon} />,
       }}
       />
     <TabNavigator.Screen

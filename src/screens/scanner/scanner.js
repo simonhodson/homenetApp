@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class Sync extends Component {
+class Scanner extends Component {
   render() {
     return (
       <View >
-        <Text> A Sync Screen </Text>
+        <Text> A Scanner Screen </Text>
       </View>
     );
   }
 }
 
-export default Sync;
+export default Scanner;

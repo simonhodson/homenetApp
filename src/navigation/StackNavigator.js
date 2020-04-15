@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import Main from '../screens/main/main';
 import List from '../screens/list/list';
-import Sync from '../screens/sync/sync';
+import Scanner from '../screens/scanner/scanner';
 import Cupboard from '../screens/cupboard/cupboard';
 import MyApp from '../screens/myapp/myApp';
 
@@ -43,7 +43,7 @@ const ListStack = createStackNavigator(
 
 const SyncStack = createStackNavigator(
   {
-    Sync,
+    Scanner,
   },
   {
     // initialRouteName: 'Home',
