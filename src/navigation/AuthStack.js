@@ -56,7 +56,7 @@ const AuthStack = () => {
           <Stack.Screen
             name="Home Net"
             component={TabNavigator}
-            options={({ route }) => ({ title: route.params.name })}
+            options={{ title: 'My Home' }}
           />
         )}
       </Stack.Navigator>

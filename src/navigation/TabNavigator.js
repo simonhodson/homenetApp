@@ -14,7 +14,7 @@ import ListIcon from '../assets/nav-icons/nav-list-50.png';
 import HomeIcon from '../assets/nav-icons/nav-home-50.png';
 import MyAppIco from '../assets/nav-icons/nav-myapp-50.png';
 import Food from '../assets/nav-icons/nav-apple-64.png';
-import ScanIcon from '../assets/nav-icons/nav-sync-50.png';
+import Barcode from '../assets/nav-icons/nav-barcode-50.png';
 import { Header } from '../components/common';
 
 const TabNavigator = createBottomTabNavigator();
@@ -53,7 +53,7 @@ export default function BottomTabBar({ navigation }) {
       options={{
         displayName: 'Scan',
         title: 'Scan Item',
-        tabBarIcon: ({ focused }) => <NavIcon icon={ScanIcon} />,
+        tabBarIcon: ({ focused }) => <NavIcon icon={Barcode} />,
       }}
       />
     <TabNavigator.Screen
