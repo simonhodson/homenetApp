@@ -19,6 +19,10 @@
     "rules" : {
       "linebreak-style": 0,
       "arrow-body-style" : "warn",
-      "class-methods-use-this": 0
+      "class-methods-use-this": 0,
+      "no-console": "off",
+      "no-use-before-define": "off",
+      "import/prefer-default-export": "off",
+      "react/display-name": "off"
     }
   }
