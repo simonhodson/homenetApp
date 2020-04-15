@@ -3,8 +3,12 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   wrapper: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  mainWrap: {
+    flexDirection: 'column',
     height: '100%',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 20,
   },
 });

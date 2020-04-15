@@ -16,6 +16,7 @@ import MyAppIco from '../assets/nav-icons/nav-myapp-50.png';
 import Food from '../assets/nav-icons/nav-apple-64.png';
 import Barcode from '../assets/nav-icons/nav-barcode-50.png';
 import { Header } from '../components/common';
+import { HeaderTitle } from '@react-navigation/stack';
 
 const TabNavigator = createBottomTabNavigator();
 
@@ -32,11 +33,9 @@ export default function BottomTabBar({ navigation }) {
     <TabNavigator.Screen
       name="Home"
       component={Main}
-      options={({ navigation, route }) => ({
-        headerTitle: (props) => <Header image={HomeIcon} {...props} />,
-        // title: route.params.name,
-        tabBarIcon: () => <NavIcon icon={HomeIcon} />,
-      })}
+      options={{
+        tabBarIcon: ({ focused }) => <NavIcon icon={HomeIcon} />,
+      }}
     />
     <TabNavigator.Screen
       name="List"

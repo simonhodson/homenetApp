@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { SafeAreaView, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 
 const Header = (props) => {
-  const { imStyle, wrapper, textStyle } = styles;
+  const { imStyle, wrapper, textStyle, imgWrap } = styles;
   const { image, title } = props;
   return (
-    <SafeAreaView style={wrapper}>
+    <View style={wrapper}>
+      <View style={imgWrap}>
       <Image source={image} style={imStyle} />
+      </View>
       <Text style={textStyle}>{title}</Text>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -21,19 +23,25 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    height: 100,
+    maxHeight: 80,
+    minHeight: 80,
+    width: '100%',
+    backgroundColor: '#ffffff'
+  },
+  imgWrap: {
+    position: 'absolute',
+    right: 10,
   },
   imStyle: {
-    borderRadius: 15,
+    borderRadius: 20,
     borderWidth: 2,
     borderColor: 'tomato',
-    height: 30,
-    width: 30,
+    height: 40,
+    width: 40,
   },
   textStyle: {
-    fontSize: 28,
-    color: 'grey',
+    fontSize: 20,
   },
 });

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, useWindowDimensions } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import styles from './styles';
 import DataRequestsService from '../../services/DataRequestsService';
+import { Header } from '../../components/common';
+import PreviewWindow from '../../components/previewWindow';
+import HomeIco from '../../assets/nav-icons/nav-home-50.png';
 
 // type Props = {
 // }
 
 const Main = ({ route }) => {
-  const { wrapper } = styles;
+  const { wrapper, mainWrap } = styles;
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((user) => {
@@ -17,20 +22,12 @@ const Main = ({ route }) => {
     return subscriber;
   }, []);
 
-  function logout() {
-    DataRequestsService.FBSignOut((err) => {
-      console.log(`No current user${err}`);
-    });
-  }
-
   return (
-    <View style={wrapper}>
-      <Text>Main Screen</Text>
-      <Button
-        title="Sign Out"
-        accessibilityLabel="Sign Out"
-        onPress={this.logout}
-      />
+    <View style={[wrapper, { height: windowHeight, width: windowWidth }]}>
+      <Header image={HomeIco} title="Home Page" />
+      <View style={mainWrap}>
+        <PreviewWindow />
+      </View>
     </View>
   );
 };
